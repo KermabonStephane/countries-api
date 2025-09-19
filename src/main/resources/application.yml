@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: countries-api
+  data:
+    mongodb:
+      uri: mongodb://admin:password@localhost:27017/countries?authSource=admin
+      auto-index-creation: true
+
+logging:
+  level:
+    com.demis27.countries: DEBUG
+    org.springframework.data.mongodb: DEBUG
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method

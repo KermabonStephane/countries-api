@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  mongo:
+    ports:
+      - '27017:27017'
+    container_name: countries-mongo
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=admin
+      - MONGODB_INITDB_ROOT_PASSWORD=password
+    image: mongo:latest
