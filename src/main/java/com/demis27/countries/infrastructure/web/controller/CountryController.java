@@ -28,9 +28,9 @@ public class CountryController {
         return service.getAllCountries().map(mapper::toDto);
     }
 
-    @GetMapping("/{id}")
-    public Mono<CountryDto> getCountryById(@PathVariable String id) {
-        return service.getCountryById(id).map(mapper::toDto);
+    @GetMapping("/{code}")
+    public Mono<CountryDto> getCountryByCode(@PathVariable Integer code) {
+        return service.getCountryByCode(code).map(mapper::toDto);
     }
 
     @GetMapping("/alpha2/{alpha2Code}")

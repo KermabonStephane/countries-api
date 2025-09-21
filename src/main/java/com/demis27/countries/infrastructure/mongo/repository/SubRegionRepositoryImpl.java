@@ -2,11 +2,15 @@ package com.demis27.countries.infrastructure.mongo.repository;
 
 import com.demis27.countries.business.repository.SubRegionRepository;
 import com.demis27.countries.domain.model.SubRegion;
+import com.demis27.countries.infrastructure.mongo.entity.SubRegionEntity;
 import com.demis27.countries.infrastructure.mongo.mapper.SubRegionEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,21 +26,6 @@ public class SubRegionRepositoryImpl implements SubRegionRepository {
     }
 
     @Override
-    public Mono<SubRegion> findById(String id) {
-        return mongoSubRegionRepository.findById(id).map(mapper::toDomain);
-    }
-
-    @Override
-    public Mono<SubRegion> findByName(String name) {
-        return mongoSubRegionRepository.findByName(name).map(mapper::toDomain);
-    }
-
-    @Override
-    public Flux<SubRegion> findByRegion(String region) {
-        return mongoSubRegionRepository.findByRegion(region).map(mapper::toDomain);
-    }
-
-    @Override
     public Mono<SubRegion> save(SubRegion subRegion) {
         return mongoSubRegionRepository.save(mapper.toEntity(subRegion)).map(mapper::toDomain);
     }
@@ -47,7 +36,21 @@ public class SubRegionRepositoryImpl implements SubRegionRepository {
     }
 
     @Override
-    public Mono<Boolean> existsByName(String name) {
-        return mongoSubRegionRepository.existsByName(name);
+    public Mono<Boolean> existsByCode(Integer code) {
+        return mongoSubRegionRepository.existsByCode(code);
+    }
+
+    @Override
+    public Mono<SubRegion> findByCode(Integer code) {
+        return mongoSubRegionRepository.findByCode(code).map(mapper::toDomain);
+    }
+
+    @Override
+    public Flux<SubRegion> saveAll(Iterable<SubRegion> subRegions) {
+        Iterable<SubRegionEntity> subRegionEntities = StreamSupport.stream(subRegions.spliterator(), false)
+                .map(mapper::toEntity)
+                .collect(Collectors.toList());
+        return mongoSubRegionRepository.saveAll(subRegionEntities)
+                .map(mapper::toDomain);
     }
 }

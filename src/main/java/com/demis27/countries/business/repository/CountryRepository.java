@@ -4,6 +4,8 @@ import com.demis27.countries.domain.model.Country;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 public interface CountryRepository {
     Flux<Country> findAll();
 
@@ -24,4 +26,8 @@ public interface CountryRepository {
     Mono<Boolean> existsByAlpha2Code(String alpha2Code);
 
     Mono<Boolean> existsByAlpha3Code(String alpha3Code);
+
+    Mono<Country> findByCode(Integer code);
+
+    Flux<Country> saveAll(List<Country> countries);
 }

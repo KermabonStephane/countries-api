@@ -2,11 +2,15 @@ package com.demis27.countries.infrastructure.mongo.repository;
 
 import com.demis27.countries.business.repository.RegionRepository;
 import com.demis27.countries.domain.model.Region;
+import com.demis27.countries.infrastructure.mongo.entity.RegionEntity;
 import com.demis27.countries.infrastructure.mongo.mapper.RegionEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
 @RequiredArgsConstructor
@@ -49,5 +53,14 @@ public class RegionRepositoryImpl implements RegionRepository {
     @Override
     public Mono<Region> findByCode(Integer code) {
         return mongoRegionRepository.findByCode(code).map(mapper::toDomain);
+    }
+
+    @Override
+    public Flux<Region> saveAll(Iterable<Region> regions) {
+        Iterable<RegionEntity> regionEntities = StreamSupport.stream(regions.spliterator(), false)
+                .map(mapper::toEntity)
+                .collect(Collectors.toList());
+        return mongoRegionRepository.saveAll(regionEntities)
+                .map(mapper::toDomain);
     }
 }

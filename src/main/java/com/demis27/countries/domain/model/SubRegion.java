@@ -13,5 +13,5 @@ public class SubRegion {
     private String id;
     private String name;
     private String region;
-    private String description;
+    private Integer code;
 }

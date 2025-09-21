@@ -10,4 +10,5 @@ public interface MongoRegionRepository extends ReactiveMongoRepository<RegionEnt
     Mono<Boolean> existsByName(String name);
 
     Mono<RegionEntity> findByCode(Integer code);
+
 }

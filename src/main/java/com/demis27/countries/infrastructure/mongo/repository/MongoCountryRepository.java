@@ -17,4 +17,6 @@ public interface MongoCountryRepository extends ReactiveMongoRepository<CountryE
     Mono<Boolean> existsByAlpha2Code(String alpha2Code);
 
     Mono<Boolean> existsByAlpha3Code(String alpha3Code);
+
+    Mono<CountryEntity> findByCode(Integer code);
 }

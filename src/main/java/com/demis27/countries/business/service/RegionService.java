@@ -37,19 +37,19 @@ public class RegionService {
                 });
     }
 
-    public Mono<Region> updateRegion(String id, Region region) {
-        return regionRepository.findById(id)
+    public Mono<Region> updateRegion(Integer code, Region region) {
+        return regionRepository.findByCode(code)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("Region not found")))
                 .flatMap(existingRegion -> {
-                    region.setId(id);
+                    region.setId(existingRegion.getId());
                     return regionRepository.save(region);
                 });
     }
 
-    public Mono<Void> deleteRegion(String id) {
-        return regionRepository.findById(id)
+    public Mono<Void> deleteRegion(Integer code) {
+        return regionRepository.findByCode(code)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("Region not found")))
-                .flatMap(region -> regionRepository.deleteById(id));
+                .flatMap(subRegion -> regionRepository.deleteById(subRegion.getId()));
     }
 
     public Mono<Region> getRegionByCode(Integer code) {

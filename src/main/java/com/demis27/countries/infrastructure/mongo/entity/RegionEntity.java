@@ -26,7 +26,6 @@ public class RegionEntity {
     @Indexed(unique = true)
     private Integer code;
 
-    private String description;
     private List<RegionEntity.SubRegionEntity> subRegions;
 
     @Data

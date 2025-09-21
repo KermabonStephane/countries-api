@@ -21,6 +21,8 @@ public class SubRegionEntity {
     @Indexed(unique = true)
     private String name;
 
+    @Indexed(unique = true)
+    private String code;
+
     private String region;
-    private String description;
 }

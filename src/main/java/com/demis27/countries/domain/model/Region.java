@@ -14,7 +14,6 @@ import java.util.List;
 public class Region {
     private String id;
     private String name;
-    private String description;
     private Integer code;
     private List<Region.SubRegion> subRegions;
 

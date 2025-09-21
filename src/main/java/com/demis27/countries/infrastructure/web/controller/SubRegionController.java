@@ -28,19 +28,9 @@ public class SubRegionController {
         return service.getAllSubRegions().map(mapper::toDto);
     }
 
-    @GetMapping("/{id}")
-    public Mono<SubRegionDto> getSubRegionById(@PathVariable String id) {
-        return service.getSubRegionById(id).map(mapper::toDto);
-    }
-
-    @GetMapping("/name/{name}")
-    public Mono<SubRegionDto> getSubRegionByName(@PathVariable String name) {
-        return service.getSubRegionByName(name).map(mapper::toDto);
-    }
-
-    @GetMapping("/region/{region}")
-    public Flux<SubRegionDto> getSubRegionsByRegion(@PathVariable String region) {
-        return service.getSubRegionsByRegion(region).map(mapper::toDto);
+    @GetMapping("/{code}")
+    public Mono<SubRegionDto> getSubRegionById(@PathVariable Integer code) {
+        return service.getSubRegionByCode(code).map(mapper::toDto);
     }
 
     @PostMapping
@@ -48,13 +38,13 @@ public class SubRegionController {
         return service.createSubRegion(mapper.toDomain(subRegion)).map(mapper::toDto);
     }
 
-    @PutMapping("/{id}")
-    public Mono<SubRegionDto> updateSubRegion(@PathVariable String id, @RequestBody SubRegionDto subRegion) {
-        return service.updateSubRegion(id, mapper.toDomain(subRegion)).map(mapper::toDto);
+    @PutMapping("/{code}")
+    public Mono<SubRegionDto> updateSubRegion(@PathVariable Integer code, @RequestBody SubRegionDto subRegion) {
+        return service.updateSubRegion(code, mapper.toDomain(subRegion)).map(mapper::toDto);
     }
 
-    @DeleteMapping("/{id}")
-    public Mono<Void> deleteSubRegion(@PathVariable String id) {
-        return service.deleteSubRegion(id);
+    @DeleteMapping("/{code}")
+    public Mono<Void> deleteSubRegion(@PathVariable Integer code) {
+        return service.deleteSubRegion(code);
     }
 }

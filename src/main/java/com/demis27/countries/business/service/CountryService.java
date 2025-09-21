@@ -19,10 +19,6 @@ public class CountryService {
         return countryRepository.findAll();
     }
 
-    public Mono<Country> getCountryById(String id) {
-        return countryRepository.findById(id);
-    }
-
     public Mono<Country> getCountryByAlpha2Code(String alpha2Code) {
         return countryRepository.findByAlpha2Code(alpha2Code);
     }
@@ -62,5 +58,9 @@ public class CountryService {
         return countryRepository.findById(id)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("Country not found")))
                 .flatMap(country -> countryRepository.deleteById(id));
+    }
+
+    public Mono<Country> getCountryByCode(Integer code) {
+        return countryRepository.findByCode(code);
     }
 }

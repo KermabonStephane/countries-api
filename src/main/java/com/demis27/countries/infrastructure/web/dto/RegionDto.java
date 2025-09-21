@@ -16,9 +16,6 @@ import java.util.List;
 @Schema(description = "Region Data Transfer Object")
 public class RegionDto {
 
-    @Schema(description = "Unique identifier", example = "507f1f77bcf86cd799439011")
-    private String id;
-
     @NotBlank(message = "Name is mandatory")
     @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
     private String name;
@@ -26,9 +23,6 @@ public class RegionDto {
     @NotBlank(message = "Code is mandatory")
     @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer code;
-
-    @Schema(description = "Region description", example = "European countries")
-    private String description;
 
     @Schema(description = "List of sub-regions")
     private List<RegionDto.SubRegionDto> subRegions;

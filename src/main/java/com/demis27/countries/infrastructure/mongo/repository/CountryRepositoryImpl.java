@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class CountryRepositoryImpl implements CountryRepository {
@@ -63,5 +65,15 @@ public class CountryRepositoryImpl implements CountryRepository {
     @Override
     public Mono<Boolean> existsByAlpha3Code(String alpha3Code) {
         return mongoCountryRepository.existsByAlpha3Code(alpha3Code);
+    }
+
+    @Override
+    public Mono<Country> findByCode(Integer code) {
+        return mongoCountryRepository.findByCode(code).map(mapper::toDomain);
+    }
+
+    @Override
+    public Flux<Country> saveAll(List<Country> countries) {
+        return mongoCountryRepository.saveAll(countries.stream().map(mapper::toEntity).toList()).map(mapper::toDomain);
     }
 }

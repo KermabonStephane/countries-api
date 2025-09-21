@@ -7,15 +7,13 @@ import reactor.core.publisher.Mono;
 public interface SubRegionRepository {
     Flux<SubRegion> findAll();
 
-    Mono<SubRegion> findById(String id);
-
-    Mono<SubRegion> findByName(String name);
-
-    Flux<SubRegion> findByRegion(String region);
-
     Mono<SubRegion> save(SubRegion subRegion);
 
     Mono<Void> deleteById(String id);
 
-    Mono<Boolean> existsByName(String name);
+    Mono<Boolean> existsByCode(Integer code);
+
+    Mono<SubRegion> findByCode(Integer code);
+
+    Flux<SubRegion> saveAll(Iterable<SubRegion> subRegions);
 }

@@ -28,18 +28,8 @@ public class RegionController {
         return service.getAllRegions().map(mapper::toDto);
     }
 
-    @GetMapping("/{id}")
-    public Mono<RegionDto> getRegionById(@PathVariable String id) {
-        return service.getRegionById(id).map(mapper::toDto);
-    }
-
-    @GetMapping("/name/{name}")
-    public Mono<RegionDto> getRegionByName(@PathVariable String name) {
-        return service.getRegionByName(name).map(mapper::toDto);
-    }
-
-    @GetMapping("/code/{code}")
-    public Mono<RegionDto> getRegionByCode(@PathVariable Integer code) {
+    @GetMapping("/{code}")
+    public Mono<RegionDto> getRegionById(@PathVariable Integer code) {
         return service.getRegionByCode(code).map(mapper::toDto);
     }
 
@@ -48,13 +38,13 @@ public class RegionController {
         return service.createRegion(mapper.toDomain(region)).map(mapper::toDto);
     }
 
-    @PutMapping("/{id}")
-    public Mono<RegionDto> updateRegion(@PathVariable String id, @RequestBody RegionDto region) {
-        return service.updateRegion(id, mapper.toDomain(region)).map(mapper::toDto);
+    @PutMapping("/{code}")
+    public Mono<RegionDto> updateRegion(@PathVariable Integer code, @RequestBody RegionDto region) {
+        return service.updateRegion(code, mapper.toDomain(region)).map(mapper::toDto);
     }
 
-    @DeleteMapping("/{id}")
-    public Mono<Void> deleteRegion(@PathVariable String id) {
-        return service.deleteRegion(id);
+    @DeleteMapping("/{code}")
+    public Mono<Void> deleteRegion(@PathVariable Integer code) {
+        return service.deleteRegion(code);
     }
 }

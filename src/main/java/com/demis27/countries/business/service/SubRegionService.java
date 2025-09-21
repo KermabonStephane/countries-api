@@ -19,40 +19,32 @@ public class SubRegionService {
         return subRegionRepository.findAll();
     }
 
-    public Mono<SubRegion> getSubRegionById(String id) {
-        return subRegionRepository.findById(id);
-    }
-
-    public Mono<SubRegion> getSubRegionByName(String name) {
-        return subRegionRepository.findByName(name);
-    }
-
-    public Flux<SubRegion> getSubRegionsByRegion(String region) {
-        return subRegionRepository.findByRegion(region);
-    }
-
     public Mono<SubRegion> createSubRegion(SubRegion subRegion) {
-        return subRegionRepository.existsByName(subRegion.getName())
+        return subRegionRepository.existsByCode(subRegion.getCode())
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.error(new IllegalArgumentException("SubRegion with name " + subRegion.getName() + " already exists"));
+                        return Mono.error(new IllegalArgumentException("SubRegion with code " + subRegion.getCode() + " already exists"));
                     }
                     return subRegionRepository.save(subRegion);
                 });
     }
 
-    public Mono<SubRegion> updateSubRegion(String id, SubRegion subRegion) {
-        return subRegionRepository.findById(id)
+    public Mono<SubRegion> updateSubRegion(Integer code, SubRegion subRegion) {
+        return subRegionRepository.findByCode(code)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("SubRegion not found")))
                 .flatMap(existingSubRegion -> {
-                    subRegion.setId(id);
+                    subRegion.setId(existingSubRegion.getId());
                     return subRegionRepository.save(subRegion);
                 });
     }
 
-    public Mono<Void> deleteSubRegion(String id) {
-        return subRegionRepository.findById(id)
+    public Mono<Void> deleteSubRegion(Integer code) {
+        return subRegionRepository.findByCode(code)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("SubRegion not found")))
-                .flatMap(subRegion -> subRegionRepository.deleteById(id));
+                .flatMap(subRegion -> subRegionRepository.deleteById(subRegion.getId()));
+    }
+
+    public Mono<SubRegion> getSubRegionByCode(Integer code) {
+        return subRegionRepository.findByCode(code);
     }
 }

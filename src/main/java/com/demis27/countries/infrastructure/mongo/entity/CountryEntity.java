@@ -8,8 +8,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,15 +25,8 @@ public class CountryEntity {
     private String alpha3Code;
 
     private String name;
-    private String nativeName;
-    private String numericCode;
+    @Indexed(unique = true)
+    private String code;
     private String region;
     private String subregion;
-    private Long population;
-    private Double area;
-    private List<String> topLevelDomain;
-    private List<String> currencies;
-    private List<String> languages;
-    private List<String> borders;
-    private String flag;
 }

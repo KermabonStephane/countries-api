@@ -6,9 +6,10 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface MongoSubRegionRepository extends ReactiveMongoRepository<SubRegionEntity, String> {
-    Mono<SubRegionEntity> findByName(String name);
 
     Flux<SubRegionEntity> findByRegion(String region);
 
-    Mono<Boolean> existsByName(String name);
+    Mono<Boolean> existsByCode(Integer code);
+
+    Mono<SubRegionEntity> findByCode(Integer code);
 }

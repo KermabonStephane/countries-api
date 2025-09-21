@@ -18,4 +18,6 @@ public interface RegionRepository {
     Mono<Boolean> existsByName(String name);
 
     Mono<Region> findByCode(Integer code);
+
+    Flux<Region> saveAll(Iterable<Region> regions);
 }
