@@ -11,4 +11,8 @@ public interface SubRegionEntityMapper {
     SubRegion toDomain(SubRegionEntity entity);
 
     SubRegionEntity toEntity(SubRegion domain);
+
+    SubRegion.Region toDomain(SubRegionEntity.RegionEntity entity);
+
+    SubRegionEntity.RegionEntity toEntity(SubRegion.Region region);
 }

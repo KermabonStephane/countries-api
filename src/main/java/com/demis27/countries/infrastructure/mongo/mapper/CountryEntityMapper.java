@@ -11,4 +11,12 @@ public interface CountryEntityMapper {
     Country toDomain(CountryEntity entity);
 
     CountryEntity toEntity(Country domain);
+
+    Country.Region toDomaine(CountryEntity.RegionEntity region);
+
+    CountryEntity.RegionEntity toEntity(Country.Region region);
+
+    Country.SubRegion toDomaine(CountryEntity.SubRegionEntity subRegion);
+
+    CountryEntity.SubRegionEntity toEntity(Country.SubRegion subRegion);
 }

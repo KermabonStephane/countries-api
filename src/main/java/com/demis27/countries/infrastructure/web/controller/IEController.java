@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v1/import-export")
@@ -17,8 +18,8 @@ public class IEController {
     private final ImportExportService importExportService;
 
     @PostMapping("/csv")
-    public ResponseEntity<Void> importCsv(@RequestParam("file") MultipartFile file) {
-        importExportService.importCsv(file);
-        return ResponseEntity.ok().build();
+    public Mono<ResponseEntity<Void>> importCsv(@RequestParam("file") MultipartFile file) {
+        return importExportService.importCsv(Mono.just(file))
+                .then(Mono.just(ResponseEntity.ok().<Void>build()));
     }
 }

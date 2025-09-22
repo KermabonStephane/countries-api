@@ -15,6 +15,24 @@ public class Country {
     private String alpha3Code;
     private String name;
     private Integer code;
-    private String region;
-    private String subregion;
+    private Country.Region region;
+    private Country.SubRegion subregion;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Region {
+        private String name;
+        private Integer code;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SubRegion {
+        private String name;
+        private Integer code;
+    }
 }

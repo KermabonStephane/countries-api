@@ -24,5 +24,14 @@ public class SubRegionEntity {
     @Indexed(unique = true)
     private String code;
 
-    private String region;
+    private SubRegionEntity.RegionEntity region;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RegionEntity {
+        private String name;
+        private String code;
+    }
 }

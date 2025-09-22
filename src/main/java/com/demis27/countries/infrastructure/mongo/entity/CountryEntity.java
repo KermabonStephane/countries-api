@@ -27,6 +27,24 @@ public class CountryEntity {
     private String name;
     @Indexed(unique = true)
     private String code;
-    private String region;
-    private String subregion;
+    private CountryEntity.RegionEntity region;
+    private CountryEntity.SubRegionEntity subregion;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RegionEntity {
+        private String name;
+        private String code;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SubRegionEntity {
+        private String name;
+        private String code;
+    }
 }

@@ -8,11 +8,16 @@ spring:
     mongodb:
       uri: mongodb://admin:password@localhost:27017/countries?authSource=admin
       auto-index-creation: true
+  webflux:
+    multipart:
+      enabled: true
+
 
 logging:
   level:
     com.demis27.countries: DEBUG
     org.springframework.data.mongodb: DEBUG
+    org.springframework.web: DEBUG
 
 springdoc:
   api-docs:

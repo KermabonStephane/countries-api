@@ -13,4 +13,8 @@ public interface SubRegionDtoMapper {
     SubRegion toDomain(SubRegionDto dto);
 
     SubRegionDto toDto(SubRegion domain);
+
+    SubRegion.Region toDomain(SubRegionDto.RegionDto dto);
+
+    SubRegionDto.RegionDto toDto(SubRegion.Region region);
 }

@@ -12,6 +12,15 @@ import lombok.NoArgsConstructor;
 public class SubRegion {
     private String id;
     private String name;
-    private String region;
+    private SubRegion.Region region;
     private Integer code;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Region {
+        private String name;
+        private Integer code;
+    }
 }
