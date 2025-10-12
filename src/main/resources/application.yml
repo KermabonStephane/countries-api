@@ -4,11 +4,13 @@ server:
 spring:
   application:
     name: countries-api
-  data:
-    mongodb:
-      uri: mongodb://admin:password@localhost:27017/countries?authSource=admin
-      auto-index-creation: true
-  webflux:
+  liquibase:
+    enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/countries
+    username: postgres
+    password: postgres
+  servlet:
     multipart:
       enabled: true
 

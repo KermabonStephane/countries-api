@@ -16,9 +16,11 @@
 
     <properties>
         <java.version>25</java.version>
-        <springdoc.version>2.6.0</springdoc.version>
+        <springdoc.version>2.8.13</springdoc.version>
         <lombok.version>1.18.42</lombok.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <liquibase-version>4.33.0</liquibase-version>
+        <postgresql-version>42.7.8</postgresql-version>
     </properties>
 
     <dependencies>
@@ -31,7 +33,7 @@
         <!-- Spring Boot Data MongoDB Reactive -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <!-- Spring Boot Validation -->
@@ -43,7 +45,7 @@
         <!-- SpringDoc OpenAPI WebFlux -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
 
@@ -51,6 +53,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase-version}</version>
         </dependency>
 
         <!-- Lombok -->
@@ -75,6 +83,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql-version}</version>
+        </dependency>
+
         <!-- Apache Commons CSV -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -90,13 +104,6 @@
         </dependency>
 
         <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>4.21.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit</artifactId>
             <version>1.4.1</version>
@@ -107,6 +114,12 @@
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit-junit5-api</artifactId>
             <version>1.4.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -33,38 +33,4 @@ public class CountryDto {
 
     @Schema(description = "ISO 3166-1 numeric code", example = "250", requiredMode = REQUIRED, type = "integer", format = "int16")
     private Integer code;
-
-    @Schema(description = "Region", example = "Europe")
-    private CountryDto.RegionDto region;
-
-    @Schema(description = "Sub-region", example = "Western Europe")
-    private CountryDto.SubRegionDto subregion;
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RegionDto {
-        @NotBlank(message = "Name is mandatory")
-        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-        private String name;
-
-        @NotBlank(message = "Code is mandatory")
-        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
-        private Integer code;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class SubRegionDto {
-        @NotBlank(message = "Name is mandatory")
-        @Schema(description = "Sub-region name", example = "Western Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-        private String name;
-
-        @NotBlank(message = "Code is mandatory")
-        @Schema(description = "SubRegion ISO code", example = "155", requiredMode = Schema.RequiredMode.REQUIRED, type = "integer", format = "int16")
-        private Integer code;
-    }
 }
