@@ -1,0 +1,10 @@
+name: countries
+url: http://$server/api/v1/countries
+headers:
+- name: Range
+  value: countries=0-19
+params:
+- name: sort
+  value: code:asc
+scripts:
+  on_response: ./scripts/countries-get.py
