@@ -19,7 +19,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/countries", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class CountryController {
 
@@ -27,7 +27,7 @@ public class CountryController {
     private final CountryDtoMapper countryMapper;
     private final SpringSupport springSupport;
 
-    @GetMapping(value = "/countries")
+    @GetMapping
     public ResponseEntity<List<CountryDto>> getAllCountries(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam) {
         PageRequest pageable = springSupport.parseFromRest(rangeHeader, sortsQueryParam);
         HeaderPageable resultRange = springSupport.extractHeaderPageable(pageable, "countries");

@@ -5,11 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +20,4 @@ public class SubRegionEntity {
     @ManyToOne
     @JoinColumn(name = "code_region", referencedColumnName = "code")
     private RegionEntity region;
-    @OneToMany
-    @JoinColumn(name = "code")
-    private List<CountryEntity> countries;
 }

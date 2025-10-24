@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,19 +21,4 @@ public class RegionDto {
     @NotBlank(message = "Code is mandatory")
     @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer code;
-
-//    @Schema(description = "List of sub-regions")
-//    private List<RegionDto.SubRegionDto> subRegions;
-//
-//    @Builder
-//    @Data
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    public static class SubRegionDto {
-//        @Schema(description = "Sub-region name", example = "Western Europe")
-//        private String name;
-//        @Schema(description = "Sub-region code", type = "integer", format = "int16", example = "155")
-//        private Integer code;
-//
-//    }
 }

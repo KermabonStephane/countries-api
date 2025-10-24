@@ -1,7 +1,6 @@
 package com.demis27.countries.infrastructure.jpa.mapper;
 
 import com.demis27.countries.domain.model.Country;
-import com.demis27.countries.domain.model.SubRegion;
 import com.demis27.countries.infrastructure.jpa.entity.CountryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
@@ -10,6 +9,4 @@ import org.mapstruct.MappingConstants;
 public interface CountryEntityMapper {
 
     Country toDomain(CountryEntity entity);
-
-    CountryEntity toEntity(Country domain);
 }

@@ -19,7 +19,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/sub-regions", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class SubRegionController {
 
@@ -27,7 +27,7 @@ public class SubRegionController {
     private final SpringSupport springSupport;
     private final SubRegionDtoMapper mapper;
 
-    @GetMapping(value = "/sub-regions")
+    @GetMapping
     public ResponseEntity<List<SubRegionDto>> getAllSubRegions(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam) {
         PageRequest pageable = springSupport.parseFromRest(rangeHeader, sortsQueryParam);
         HeaderPageable resultRange = springSupport.extractHeaderPageable(pageable, "sub-regions");

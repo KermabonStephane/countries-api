@@ -2,6 +2,7 @@ package com.demis27.countries.infrastructure.jpa.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,10 +22,10 @@ public class CountryEntity {
     private String alpha3Code;
     @Column(name = "name", nullable = false, length = 256)
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="code_region", referencedColumnName = "code")
     private RegionEntity region;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="code_sub_region", referencedColumnName = "code")
     private SubRegionEntity subRegion;
 }
