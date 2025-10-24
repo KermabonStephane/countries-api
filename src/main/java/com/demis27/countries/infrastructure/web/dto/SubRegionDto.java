@@ -22,21 +22,21 @@ public class SubRegionDto {
     @Schema(description = "SubRegion ISO code", example = "155", requiredMode = Schema.RequiredMode.REQUIRED, type = "integer", format = "int16")
     private Integer code;
 
-    @Schema(description = "Parent region", example = "Europe")
-    private SubRegionDto.RegionDto region;
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Schema(description = "Sub-Region Data Transfer Object")
-    public static class RegionDto {
-        @NotBlank(message = "Name is mandatory")
-        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-        private String name;
-
-        @NotBlank(message = "Code is mandatory")
-        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
-        private Integer code;
-    }
+//    @Schema(description = "Parent region", example = "Europe")
+//    private SubRegionDto.RegionDto region;
+//
+//    @Data
+//    @Builder
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    @Schema(description = "Sub-Region Data Transfer Object")
+//    public static class RegionDto {
+//        @NotBlank(message = "Name is mandatory")
+//        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
+//        private String name;
+//
+//        @NotBlank(message = "Code is mandatory")
+//        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
+//        private Integer code;
+//    }
 }

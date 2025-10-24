@@ -1,0 +1,9 @@
+package com.demis27.countries.infrastructure.jpa.repository;
+
+import com.demis27.countries.infrastructure.jpa.entity.RegionEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface RegionEntityRepository extends JpaRepository<RegionEntity, Integer> {
+}

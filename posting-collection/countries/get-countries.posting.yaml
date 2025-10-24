@@ -1,4 +1,4 @@
-name: countries
+name: Countries
 url: http://$server/api/v1/countries
 headers:
 - name: Range

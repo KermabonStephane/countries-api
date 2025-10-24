@@ -14,4 +14,6 @@ public class Country {
     private String alpha3Code;
     private String name;
     private Integer code;
+    private Region region;
+    private SubRegion subRegion;
 }

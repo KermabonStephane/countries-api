@@ -13,15 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CountryService {
 
-    private final CountryEntityRepository repository;
-    private final CountryEntityMapper mapper;
-
+    private final CountryEntityRepository countriesRepository;
+    private final CountryEntityMapper countriesMapper;
 
     public List<Country> getAllCountries(Pageable pageable) {
-        return repository.findAll(pageable).stream().map(mapper::toDomain).toList();
+        return countriesRepository.findAll(pageable).stream().map(countriesMapper::toDomain).toList();
     }
 
-    public Long count() {
-        return repository.count();
+    public Long countCountries() {
+        return countriesRepository.count();
     }
 }

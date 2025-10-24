@@ -9,12 +9,8 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface RegionDtoMapper {
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "subRegions", ignore = true)
     Region toDomain(RegionDto dto);
 
     RegionDto toDto(Region domain);
-
-    Region.SubRegion toDomain(RegionDto.SubRegionDto dto);
-
-    RegionDto.SubRegionDto toDto(Region.SubRegion domain);
 }

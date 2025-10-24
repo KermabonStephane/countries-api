@@ -12,17 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Region {
-    private String id;
     private String name;
     private Integer code;
-    private List<Region.SubRegion> subRegions;
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class SubRegion {
-        private String name;
-        private Integer code;
-    }
+    private List<SubRegion> subRegions;
 }

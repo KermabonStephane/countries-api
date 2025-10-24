@@ -17,6 +17,9 @@ import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
 @Schema(description = "Country Data Transfer Object")
 public class CountryDto {
 
+    @Schema(description = "ISO 3166-1 numeric code", example = "250", requiredMode = REQUIRED, type = "integer", format = "int16")
+    private Integer code;
+
     @NotBlank(message = "Alpha2 code is mandatory")
     @Size(min = 2, max = 2, message = "Alpha2 code must be exactly 2 characters")
     @Schema(description = "ISO 3166-1 alpha-2 code", example = "FR", requiredMode = REQUIRED)
@@ -31,6 +34,35 @@ public class CountryDto {
     @Schema(description = "Country name", example = "France", requiredMode = REQUIRED)
     private String name;
 
-    @Schema(description = "ISO 3166-1 numeric code", example = "250", requiredMode = REQUIRED, type = "integer", format = "int16")
-    private Integer code;
+    @Schema(description = "Region of the country.")
+    private CountryDto.RegionDto region;
+
+    @Schema(description = "Region of the country.")
+    private CountryDto.SubRegionDto subRegion;
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(description = "Region Data Transfer Object")
+    public static class RegionDto {
+        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
+        private String name;
+
+        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
+        private Integer code;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Schema(description = "Region Data Transfer Object")
+    public static class SubRegionDto {
+        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
+        private String name;
+
+        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
+        private Integer code;
+    }
 }
