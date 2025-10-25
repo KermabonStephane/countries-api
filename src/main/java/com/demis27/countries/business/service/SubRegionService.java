@@ -8,19 +8,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SubRegionService {
 
-    private final SubRegionEntityRepository subRegionRepository;
-    private final SubRegionEntityMapper subRegionMapper;
+    private final SubRegionEntityRepository repository;
+    private final SubRegionEntityMapper mapper;
 
     public List<SubRegion> getAllSubRegions(Pageable pageable) {
-        return subRegionRepository.findAll(pageable).stream().map(subRegionMapper::toDomain).toList();
+        return repository.findAll(pageable).stream().map(mapper::toDomain).toList();
     }
 
     public Long countSubRegions() {
-        return subRegionRepository.count();
+        return repository.count();
+    }
+
+    public Optional<SubRegion> getSubRegion(Integer subRegionCode) {
+        return repository.findById(subRegionCode).map(mapper::toDomain);
     }
 }

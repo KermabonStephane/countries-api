@@ -1,0 +1,9 @@
+name: Regions
+url: http://$server/api/v1/regions
+headers:
+  - name: Range
+    value: regions=0-19
+params:
+  - name: sort
+    value: code:asc
+

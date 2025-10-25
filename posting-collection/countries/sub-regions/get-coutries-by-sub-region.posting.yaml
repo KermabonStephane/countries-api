@@ -1,0 +1,2 @@
+name: Coutries by Sub-Region
+url: http://$server/api/v1/sub-regions/15/countries

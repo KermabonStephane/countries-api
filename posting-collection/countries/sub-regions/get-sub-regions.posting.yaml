@@ -1,0 +1,9 @@
+name: Sub-Regions
+url: http://$server/api/v1/sub-regions
+headers:
+  - name: Range
+    value: sub-regions=0-19
+params:
+  - name: sort
+    value: code:asc
+

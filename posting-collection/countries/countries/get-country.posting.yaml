@@ -1,0 +1,2 @@
+name: Country
+url: http://$server/api/v1/countries/4

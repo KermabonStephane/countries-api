@@ -8,19 +8,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RegionService {
 
-    private final RegionEntityRepository regionsRepository;
-    private final RegionEntityMapper regionsMapper;
+    private final RegionEntityRepository repository;
+    private final RegionEntityMapper mapper;
 
     public List<Region> getAllRegions(Pageable pageable) {
-        return regionsRepository.findAll(pageable).stream().map(regionsMapper::toDomain).toList();
+        return repository.findAll(pageable).stream().map(mapper::toDomain).toList();
     }
 
     public Long countRegions() {
-        return regionsRepository.count();
+        return repository.count();
+    }
+
+    public Optional<Region> getRegion(Integer regionCode) {
+        return repository.findById(regionCode).map(mapper::toDomain);
     }
 }

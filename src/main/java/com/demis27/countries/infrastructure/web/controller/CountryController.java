@@ -4,11 +4,13 @@ import com.demis27.commons.restful.HeaderPageable;
 import com.demis27.commons.restful.spring.SpringSupport;
 import com.demis27.countries.business.service.CountryService;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
+import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
 import com.demis27.countries.infrastructure.web.mapper.CountryDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CountryController {
 
     private final CountryService service;
-    private final CountryDtoMapper countryMapper;
+    private final CountryDtoMapper mapper;
     private final SpringSupport springSupport;
 
     @GetMapping
@@ -38,8 +40,16 @@ public class CountryController {
                 .header("link", resultRange.toLinkHeaders("/api/v1/countries").toString())
                 .body(service.getAllCountries(pageable)
                         .stream()
-                        .map(countryMapper::toDto)
+                        .map(mapper::toDto)
                         .toList());
     }
 
+    @GetMapping("/{countryCode}")
+    public ResponseEntity<CountryDto> getCountry(@PathVariable("countryCode") Integer countryCode) {
+        return ResponseEntity
+                .ok(service
+                        .getCountry(countryCode)
+                        .map(mapper::toDto)
+                        .orElseThrow(() -> new ResourceNotFoundException("Country with code %d not found".formatted(countryCode))));
+    }
 }
