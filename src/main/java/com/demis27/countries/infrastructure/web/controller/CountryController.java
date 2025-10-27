@@ -23,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/countries", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class CountryController {
+public class CountryController implements CountryApi {
 
     private final CountryService service;
     private final CountryDtoMapper mapper;

@@ -11,32 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Sub-Region Data Transfer Object")
+@Schema(description = "Sub-Region Data defined by the United Nations")
 public class SubRegionDto {
 
-    @NotBlank(message = "Name is mandatory")
-    @Schema(description = "Sub-region name", example = "Western Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String name;
-
     @NotBlank(message = "Code is mandatory")
-    @Schema(description = "SubRegion ISO code", example = "155", requiredMode = Schema.RequiredMode.REQUIRED, type = "integer", format = "int16")
+    @Schema(description = "The unique numeric code of the sub-region.", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer code;
 
-//    @Schema(description = "Parent region", example = "Europe")
-//    private SubRegionDto.RegionDto region;
-//
-//    @Data
-//    @Builder
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    @Schema(description = "Sub-Region Data Transfer Object")
-//    public static class RegionDto {
-//        @NotBlank(message = "Name is mandatory")
-//        @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-//        private String name;
-//
-//        @NotBlank(message = "Code is mandatory")
-//        @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
-//        private Integer code;
-//    }
+    @NotBlank(message = "Name is mandatory")
+    @Schema(description = "The English name of the sub-region.", example = "Western Europe", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String name;
 }

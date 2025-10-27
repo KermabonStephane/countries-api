@@ -26,7 +26,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/sub-regions", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class SubRegionController {
+public class SubRegionController implements SubRegionApi {
 
     private final SubRegionService service;
     private final SpringSupport springSupport;
@@ -56,7 +56,7 @@ public class SubRegionController {
     }
 
     @GetMapping("/{subRegionCode}/countries")
-    public ResponseEntity<List<CountryDto>> getCountriesByRegion(@PathVariable("subRegionCode") Integer subRegionCode) {
+    public ResponseEntity<List<CountryDto>> getCountriesBySubRegion(@PathVariable("subRegionCode") Integer subRegionCode) {
         return ResponseEntity.ok(countryService.getAllCountriesBySubRegion(subRegionCode).stream().map(countryMapper::toDto).toList());
     }
 

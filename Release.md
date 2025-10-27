@@ -8,4 +8,5 @@
 * [#2](https://github.com/demis27/countries-api/issues/2) create a readme
 * [#3](https://github.com/demis27/countries-api/issues/3) Add the GET resources/{resourceId} and manage presence (404)
 * [#8](https://github.com/demis27/countries-api/issues/8) Initiate collection for posting
-
+* [#6](https://github.com/KermabonStephane/countries-api/issues/6) Add a markdown documentation of the features (README.md)
+* [#4](https://github.com/KermabonStephane/countries-api/issues/4) Add Open API documentation

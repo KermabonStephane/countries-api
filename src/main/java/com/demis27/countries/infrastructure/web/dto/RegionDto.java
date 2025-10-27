@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Region Data Transfer Object")
+@Schema(description = "Region defined by the United Nations")
 public class RegionDto {
 
-    @NotBlank(message = "Name is mandatory")
-    @Schema(description = "Region name", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String name;
-
     @NotBlank(message = "Code is mandatory")
-    @Schema(description = "Region code", type = "integer", format = "int16", example = "142", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "The unique numeric code of the region.", example = "150", type = "integer", format = "int16", requiredMode = Schema.RequiredMode.REQUIRED)
     private Integer code;
+
+    @NotBlank(message = "Name is mandatory")
+    @Schema(description = "The English name of the region.", example = "Europe", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String name;
 }

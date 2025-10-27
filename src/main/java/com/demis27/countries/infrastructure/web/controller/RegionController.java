@@ -26,7 +26,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/regions", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class RegionController {
+public class RegionController implements RegionApi {
 
     private final RegionService service;
     private final RegionDtoMapper mapper;
