@@ -1,6 +1,8 @@
 package com.demis27.countries.infrastructure.web.mapper
 
 import com.demis27.countries.domain.model.Country
+import com.demis27.countries.domain.model.Region
+import com.demis27.countries.domain.model.SubRegion
 import com.demis27.countries.infrastructure.web.dto.CountryDto
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
@@ -9,49 +11,58 @@ class CountryDtoMapperSpec extends Specification {
 
     def mapper = Mappers.getMapper(CountryDtoMapper.class)
 
-    def "should map CountryDto to Country"() {
-        given:
-        def dto = new CountryDto(
-                id: 1L,
-                name: "test",
-                capital: "test",
-                region: "test",
-                subregion: "test",
-                area: 1.0
-        )
-
-        when:
-        def domain = mapper.toDomain(dto)
-
-        then:
-        domain.id == dto.id
-        domain.name == dto.name
-        domain.capital == dto.capital
-        domain.region == dto.region
-        domain.subregion == dto.subregion
-        domain.area == dto.area
-    }
-
     def "should map Country to CountryDto"() {
         given:
+        def regionDomain = new Region(code: 150, name: "Europe")
+        def subRegionDomain = new SubRegion(code: 155, name: "Western Europe", region: regionDomain)
         def domain = new Country(
-                id: 1L,
-                name: "test",
-                capital: "test",
-                region: "test",
-                subregion: "test",
-                area: 1.0
+                code: 250,
+                alpha2Code: "FR",
+                alpha3Code: "FRA",
+                name: "France",
+                region: regionDomain,
+                subRegion: subRegionDomain
         )
 
         when:
         def dto = mapper.toDto(domain)
 
         then:
-        dto.id == domain.id
+        dto.code == domain.code
+        dto.alpha2Code == domain.alpha2Code
+        dto.alpha3Code == domain.alpha3Code
         dto.name == domain.name
-        dto.capital == domain.capital
-        dto.region == domain.region
-        dto.subregion == domain.subregion
-        dto.area == domain.area
+        dto.region != null
+        dto.region.code == domain.region.code
+        dto.region.name == domain.region.name
+        dto.subRegion != null
+        dto.subRegion.code == domain.subRegion.code
+        dto.subRegion.name == domain.subRegion.name
     }
+
+    def "should map Region to RegionDto"() {
+        given:
+        def domain = new Region(code: 150, name: "Europe")
+
+        when:
+        CountryDto.RegionDto dto = mapper.toDto(domain)
+
+        then:
+        dto.code == domain.code
+        dto.name == domain.name
+    }
+
+    def "should map SubRegion to SubRegionDto"() {
+        given:
+        def regionDomain = new Region(code: 150, name: "Europe")
+        def domain = new SubRegion(code: 155, name: "Western Europe", region: regionDomain)
+
+        when:
+        CountryDto.SubRegionDto dto = mapper.toDto(domain)
+
+        then:
+        dto.code == domain.code
+        dto.name == domain.name
+    }
+
 }

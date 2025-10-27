@@ -11,3 +11,4 @@
 * [#6](https://github.com/KermabonStephane/countries-api/issues/6) Add a markdown documentation of the features (README.md)
 * [#4](https://github.com/KermabonStephane/countries-api/issues/4) Add Open API documentation
 * [#11](https://github.com/KermabonStephane/countries-api/issues/11) Add on README.md information of clean architecture
+* [#12](https://github.com/KermabonStephane/countries-api/issues/12) Add coverage
