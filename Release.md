@@ -10,3 +10,4 @@
 * [#8](https://github.com/demis27/countries-api/issues/8) Initiate collection for posting
 * [#6](https://github.com/KermabonStephane/countries-api/issues/6) Add a markdown documentation of the features (README.md)
 * [#4](https://github.com/KermabonStephane/countries-api/issues/4) Add Open API documentation
+* [#11](https://github.com/KermabonStephane/countries-api/issues/11) Add on README.md information of clean architecture

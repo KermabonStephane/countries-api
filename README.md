@@ -26,6 +26,76 @@ This project uses OpenAPI 3 for API documentation. Once the application is runni
 
 ## Technical points
 
+This project is structured following the principles of **Clean Architecture**. This approach separates the code into distinct layers, with a strict dependency rule: outer layers can depend on inner layers, but inner layers know nothing about the outer ones. This creates a more maintainable, testable, and framework-independent system.
+
+### Architectural Layers
+
+The diagram below shows the main layers of the application: **Entities**, **Use cases** and **Interface adapter**.
+
+#### Controller view
+
+```mermaid
+graph TD
+  subgraph "Entities"
+      Entity("Business Object")
+  end
+
+  subgraph "Use cases"
+    Services
+  end
+  
+  subgraph "Interface adapter (WEB)"
+    Controllers("Controllers<br>(Spring Web)") -- use --> Services
+    Controllers("Controllers<br>(Spring Web)") -- use --> Entity
+  end
+```
+
+#### Service view
+
+```mermaid
+graph TD
+  subgraph "Interface adapter"
+    Repository("Repository<br>(Spring Data)")
+  end
+
+    subgraph "Entities"
+      Entity("Entities<br>(Business Objects)")
+  end
+
+  subgraph "Use cases"
+    Services -- use --> Entity
+    Services -- use --> Repository
+  end
+```
+
+### Request Flow Example
+
+The following sequence diagram illustrates how a `GET /api/v1/countries/{id}` request flows through the different layers of the architecture.
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant CountryController as Controller<br>(Infrastructure)
+    participant CountryDtoMapper as DtoMapper<br>(Infrastructure)
+    participant CountryService as Service<br>(Application)
+    participant CountryRepository as Repository<br>(Infrastructure)
+    participant CountryEntityMapper as EntityMapper<br>(Infrastructure)
+    participant Database
+
+    Client->>+CountryController: GET /api/v1/countries/{id}
+    CountryController->>+CountryService: getCountry(id)
+    CountryService->>+CountryRepository: findById(id)
+    CountryRepository->>+Database: SELECT * FROM countries WHERE code = ?
+    Database-->>-CountryRepository: CountryEntity
+    CountryRepository-->>-CountryService: Optional<CountryEntity>
+    CountryService->>+CountryEntityMapper: toDomaine(CountryEntity)
+    CountryEntityMapper->>+CountryService: Country
+    CountryService-->>-CountryController: Country
+    CountryController->>+CountryDtoMapper: toDto(Country)
+    CountryDtoMapper->>+CountryController: CountryDto
+    CountryController-->>-Client: 200 OK (CountryDto)
+```
+
 We use [posting](https://posting.sh/) to test the API by the command
 
 ```shell
