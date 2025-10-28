@@ -22,4 +22,16 @@ class SubRegionDtoMapperSpec extends Specification {
         dto.code == domain.code
         dto.name == domain.name
     }
+
+    def "should map SubRegionDto to SubRegion"() {
+        given:
+        def dto = new SubRegionDto(code: 155, name: "Western Europe")
+
+        when:
+        SubRegion domain = mapper.toDomain(dto)
+
+        then:
+        domain.code == dto.code
+        domain.name == dto.name
+    }
 }

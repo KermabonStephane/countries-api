@@ -5,8 +5,10 @@ import com.demis27.countries.infrastructure.jpa.entity.CountryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {RegionEntityMapper.class, SubRegionEntityMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CountryEntityMapper {
 
     Country toDomain(CountryEntity entity);
+
+    CountryEntity toEntity(Country domain);
 }

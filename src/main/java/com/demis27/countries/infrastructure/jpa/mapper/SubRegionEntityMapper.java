@@ -9,4 +9,6 @@ import org.mapstruct.MappingConstants;
 public interface SubRegionEntityMapper {
 
     SubRegion toDomain(SubRegionEntity entity);
+
+    SubRegionEntity toEntity(SubRegion domain);
 }

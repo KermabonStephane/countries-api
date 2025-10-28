@@ -20,4 +20,16 @@ class RegionDtoMapperSpec extends Specification {
         dto.code == domain.code
         dto.name == domain.name
     }
+
+    def "should map RegionDto to Region"() {
+        given:
+        def dto = new RegionDto(code: 150, name: "Europe")
+
+        when:
+        Region domain = mapper.toDomain(dto)
+
+        then:
+        domain.code == dto.code
+        domain.name == dto.name
+    }
 }

@@ -1,5 +1,6 @@
 package com.demis27.countries.infrastructure.jpa.mapper
 
+import com.demis27.countries.domain.Region
 import com.demis27.countries.domain.SubRegion
 import com.demis27.countries.infrastructure.jpa.entity.RegionEntity
 import com.demis27.countries.infrastructure.jpa.entity.SubRegionEntity
@@ -22,5 +23,19 @@ class SubRegionEntityMapperSpec extends Specification {
         domain.code == entity.code
         domain.name == entity.name
         domain.region.name == entity.region.name
+    }
+
+    def "should map SubRegion domain to SubRegionEntity"() {
+        given:
+        def domain = new SubRegion(code: 15, name: "Western Europe", region: new Region(code: 150, name: "Europe"))
+
+        when:
+        SubRegionEntity entity = mapper.toEntity(domain)
+
+        then:
+        entity.code == domain.code
+        entity.name == domain.name
+        entity.region.name == domain.region.name
+        entity.region.code == domain.region.code
     }
 }

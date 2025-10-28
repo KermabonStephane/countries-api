@@ -9,4 +9,6 @@ import org.mapstruct.MappingConstants;
 public interface RegionDtoMapper {
 
     RegionDto toDto(Region domain);
+
+    Region toDomain(RegionDto dto);
 }

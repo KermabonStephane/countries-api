@@ -9,4 +9,6 @@ import org.mapstruct.MappingConstants;
 public interface SubRegionDtoMapper {
 
     SubRegionDto toDto(SubRegion domain);
+
+    SubRegion toDomain(SubRegionDto dto);
 }

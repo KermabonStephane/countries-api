@@ -20,4 +20,17 @@ class RegionEntityMapperSpec extends Specification {
         domain.code == entity.code
         domain.name == entity.name
     }
+
+    def "should map Region domain to RegionEntity"() {
+        given:
+        def domain = new Region(code: 150, name: "Europe")
+
+        when:
+        RegionEntity entity = mapper.toEntity(domain)
+
+        then:
+        entity.code == domain.code
+        entity.name == domain.name
+
+    }
 }

@@ -15,4 +15,10 @@ public interface CountryDtoMapper {
     CountryDto.RegionDto toDto(Region domain);
 
     CountryDto.SubRegionDto toDto(SubRegion domain);
+
+    Country toDomain(CountryDto dto);
+
+    Region toDomain(CountryDto.RegionDto dto);
+
+    SubRegion toDomain(CountryDto.SubRegionDto dto);
 }
