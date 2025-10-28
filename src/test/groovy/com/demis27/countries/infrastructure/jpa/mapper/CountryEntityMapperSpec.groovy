@@ -1,10 +1,7 @@
 package com.demis27.countries.infrastructure.jpa.mapper
 
-import com.demis27.countries.domain.model.Country
+import com.demis27.countries.domain.Country
 import com.demis27.countries.infrastructure.jpa.entity.CountryEntity
-import com.demis27.countries.infrastructure.jpa.entity.RegionEntity
-import com.demis27.countries.infrastructure.jpa.entity.SubRegionEntity
-import com.demis27.countries.infrastructure.web.mapper.RegionDtoMapper
 import org.mapstruct.factory.Mappers
 import spock.lang.Ignore
 import spock.lang.Specification

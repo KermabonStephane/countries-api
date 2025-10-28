@@ -1,6 +1,6 @@
-package com.demis27.countries.business.service;
+package com.demis27.countries.service;
 
-import com.demis27.countries.domain.model.Country;
+import com.demis27.countries.domain.Country;
 import com.demis27.countries.infrastructure.jpa.mapper.CountryEntityMapper;
 import com.demis27.countries.infrastructure.jpa.repository.CountryEntityRepository;
 import lombok.RequiredArgsConstructor;

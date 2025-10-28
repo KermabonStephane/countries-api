@@ -2,8 +2,8 @@ package com.demis27.countries.infrastructure.web.controller;
 
 import com.demis27.commons.restful.HeaderPageable;
 import com.demis27.commons.restful.spring.SpringSupport;
-import com.demis27.countries.business.service.CountryService;
-import com.demis27.countries.business.service.SubRegionService;
+import com.demis27.countries.service.CountryService;
+import com.demis27.countries.service.SubRegionService;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.dto.SubRegionDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;

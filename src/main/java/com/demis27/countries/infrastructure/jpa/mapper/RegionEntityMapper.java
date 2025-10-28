@@ -1,6 +1,6 @@
 package com.demis27.countries.infrastructure.jpa.mapper;
 
-import com.demis27.countries.domain.model.Region;
+import com.demis27.countries.domain.Region;
 import com.demis27.countries.infrastructure.jpa.entity.RegionEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
