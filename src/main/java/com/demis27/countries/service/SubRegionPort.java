@@ -1,14 +1,11 @@
 package com.demis27.countries.service;
 
+import com.demis27.commons.restful.spring.service.ResourcePort;
 import com.demis27.countries.domain.SubRegion;
-import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface SubRegionPort {
-
-    List<SubRegion> getAllSubRegions(Pageable pageable);
+public interface SubRegionPort extends ResourcePort<SubRegion> {
 
     Long countSubRegions();
 

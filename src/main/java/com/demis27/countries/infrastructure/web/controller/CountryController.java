@@ -1,6 +1,7 @@
 package com.demis27.countries.infrastructure.web.controller;
 
-import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
+import com.demis27.commons.restful.spring.infrastructure.web.ResourceController;
+import com.demis27.commons.restful.spring.model.APIResourcesRequest;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
 import com.demis27.countries.infrastructure.web.mapper.CountryDtoMapper;
@@ -21,11 +22,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/countries", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class CountryController implements CountryApi {
+public class CountryController extends ResourceController<CountryDto> implements CountryApi {
 
     private final CountryService service;
     private final CountryDtoMapper mapper;
-    private final CountryWebSupport countryWebSupport;
 
     @GetMapping
     public ResponseEntity<List<CountryDto>> getAllCountries(
@@ -38,9 +38,9 @@ public class CountryController implements CountryApi {
                 rangeHeader,
                 sortsQueryParam,
                 filterQueryParam);
-        return countryWebSupport.getAll(
+        return getAll(
                 request,
-                pageRequest -> service.getAllCountries(pageRequest).stream().map(mapper::toDto).toList(),
+                resourceRequest -> service.getAllCountries(resourceRequest).stream().map(mapper::toDto).toList(),
                 service::countCountries);
     }
 

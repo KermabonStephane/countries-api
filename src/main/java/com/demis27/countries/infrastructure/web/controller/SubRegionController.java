@@ -1,17 +1,17 @@
 package com.demis27.countries.infrastructure.web.controller;
 
-import com.demis27.commons.restful.HeaderPageable;
 import com.demis27.commons.restful.spring.SpringSupport;
-import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
-import com.demis27.countries.service.CountryService;
-import com.demis27.countries.service.SubRegionService;
+import com.demis27.commons.restful.spring.infrastructure.web.ResourceController;
+import com.demis27.commons.restful.spring.model.APIResourcesRequest;
+import com.demis27.countries.domain.Country;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.dto.SubRegionDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
 import com.demis27.countries.infrastructure.web.mapper.CountryDtoMapper;
 import com.demis27.countries.infrastructure.web.mapper.SubRegionDtoMapper;
+import com.demis27.countries.service.CountryService;
+import com.demis27.countries.service.SubRegionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +27,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/sub-regions", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class SubRegionController implements SubRegionApi {
+public class SubRegionController extends ResourceController<SubRegionDto> implements SubRegionApi {
 
     private final SubRegionService service;
-    private final SpringSupport springSupport;
     private final SubRegionDtoMapper mapper;
     private final CountryService countryService;
     private final CountryDtoMapper countryMapper;
-    private final SubRegionWebSupport subRegionWebSupport;
 
     @GetMapping
     public ResponseEntity<List<SubRegionDto>> getAllSubRegions(
@@ -47,9 +45,9 @@ public class SubRegionController implements SubRegionApi {
                 rangeHeader,
                 sortsQueryParam,
                 filterQueryParam);
-        return subRegionWebSupport.getAll(
+        return getAll(
                 request,
-                pageRequest -> service.getAllSubRegions(pageRequest).stream().map(mapper::toDto).toList(),
+                resourceRequest -> service.getAllSubRegions(resourceRequest).stream().map(mapper::toDto).toList(),
                 service::countSubRegions);
     }
 

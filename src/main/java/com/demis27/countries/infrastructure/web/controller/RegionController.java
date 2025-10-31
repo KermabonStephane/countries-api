@@ -1,6 +1,7 @@
 package com.demis27.countries.infrastructure.web.controller;
 
-import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
+import com.demis27.commons.restful.spring.infrastructure.web.ResourceController;
+import com.demis27.commons.restful.spring.model.APIResourcesRequest;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.dto.RegionDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
@@ -24,13 +25,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "/api/v1/regions", produces = APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class RegionController implements RegionApi {
+public class RegionController extends ResourceController<RegionDto> implements RegionApi {
 
     private final RegionService service;
     private final RegionDtoMapper mapper;
     private final CountryService countryService;
     private final CountryDtoMapper countryMapper;
-    private final RegionWebSupport regionWebSupport;
 
     @GetMapping
     public ResponseEntity<List<RegionDto>> getAllRegions(
@@ -43,9 +43,9 @@ public class RegionController implements RegionApi {
                 rangeHeader,
                 sortsQueryParam,
                 filterQueryParam);
-        return regionWebSupport.getAll(
+        return getAll(
                 request,
-                pageRequest -> service.getAllRegions(pageRequest).stream().map(mapper::toDto).toList(),
+                resourceRequest -> service.getAllRegions(resourceRequest).stream().map(mapper::toDto).toList(),
                 service::countRegions);
     }
 

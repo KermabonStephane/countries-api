@@ -1,8 +1,9 @@
 package com.demis27.countries.service;
 
+import com.demis27.commons.restful.spring.model.APIResourcesRequest;
+import com.demis27.commons.restful.spring.service.ResourceService;
 import com.demis27.countries.domain.Country;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,27 +11,25 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CountryService {
+public class CountryService extends ResourceService<Country> {
 
-    private final CountryPort countryPort;
-
-    public List<Country> getAllCountries(Pageable pageable) {
-        return countryPort.getAllCountries(pageable);
+    public List<Country> getAllCountries(APIResourcesRequest request) {
+        return support.getAllResources(request);
     }
 
     public Long countCountries() {
-        return countryPort.countCountries();
+        return ((CountryPort)support).countCountries();
     }
 
     public Optional<Country> getCountry(Integer countryCode) {
-        return countryPort.getCountry(countryCode);
+        return ((CountryPort)support).getCountry(countryCode);
     }
 
     public List<Country> getAllCountriesByRegion(Integer regionCode) {
-        return countryPort.getAllCountriesByRegion(regionCode);
+        return ((CountryPort)support).getAllCountriesByRegion(regionCode);
     }
 
     public List<Country> getAllCountriesBySubRegion(Integer subRegionCode) {
-        return countryPort.getAllCountriesBySubRegion(subRegionCode);
+        return ((CountryPort)support).getAllCountriesBySubRegion(subRegionCode);
     }
 }
