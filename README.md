@@ -110,7 +110,7 @@ The API provides the following features:
 
 ### Countries
 
-The countries contains information from the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1):
+A country contains information from the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1):
 
 * ISO 3166-1 alpha-2 – two-letter country codes which are used most prominently for the Internet's country code top-level domains (with a few exceptions).
 * ISO 3166-1 alpha-3 – three-letter country codes which allow a better visual association between the codes and the country names than the alpha-2 codes.
@@ -133,7 +133,7 @@ The countries contains information from the [ISO 3166-1](https://en.wikipedia.or
 
 ### Regions
 
-The regions contains information from the [United Nations](https://unstats.un.org/unsd/methodology/m49/):
+A region contains information from the [United Nations](https://unstats.un.org/unsd/methodology/m49/):
 
 * ISO 3166-1 numeric – three-digit region codes which are identical to those developed and maintained by the United Nations Statistics Division, with the advantage of script (writing system) independence, and hence useful for people or systems using non-Latin scripts. This one is use as identifier for a country.
 * The english name of the region.
@@ -158,7 +158,7 @@ The regions contains information from the [United Nations](https://unstats.un.or
 
 ### Sub-Regions
 
-The sub-regions contains information from the [United Nations](https://unstats.un.org/unsd/methodology/m49/):
+A sub-region contains information from the [United Nations](https://unstats.un.org/unsd/methodology/m49/):
 
 * ISO 3166-1 numeric – three-digit sub-region codes which are identical to those developed and maintained by the United Nations Statistics Division, with the advantage of script (writing system) independence, and hence useful for people or systems using non-Latin scripts. This one is use as identifier for a country.
 * The english name of the region.
