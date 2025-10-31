@@ -2,6 +2,7 @@ package com.demis27.countries.infrastructure.web.controller;
 
 import com.demis27.commons.restful.HeaderPageable;
 import com.demis27.commons.restful.spring.SpringSupport;
+import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
 import com.demis27.countries.service.CountryService;
 import com.demis27.countries.service.SubRegionService;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
@@ -33,21 +34,23 @@ public class SubRegionController implements SubRegionApi {
     private final SubRegionDtoMapper mapper;
     private final CountryService countryService;
     private final CountryDtoMapper countryMapper;
-
+    private final SubRegionWebSupport subRegionWebSupport;
 
     @GetMapping
-    public ResponseEntity<List<SubRegionDto>> getAllSubRegions(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam) {
-        PageRequest pageable = springSupport.parseFromRest(rangeHeader, sortsQueryParam);
-        HeaderPageable resultRange = springSupport.extractHeaderPageable(pageable, "sub-regions");
-        resultRange = HeaderPageable.toBuilder(resultRange).total(service.countSubRegions()).build();
-        return ResponseEntity
-                .ok()
-                .header(HeaderPageable.CONTENT_RANGE_HEADER_NAME, resultRange.toContentRangeHeader(false))
-                .header("link", resultRange.toLinkHeaders("/api/v1/sub-regions").toString())
-                .body(service.getAllSubRegions(pageable)
-                        .stream()
-                        .map(mapper::toDto)
-                        .toList());
+    public ResponseEntity<List<SubRegionDto>> getAllSubRegions(
+            @RequestHeader(name = "Range", required = false) String rangeHeader,
+            @RequestParam(name = "sort", required = false) String sortsQueryParam,
+            @RequestParam(name = "filter", required = false) String filterQueryParam) {
+        APIResourcesRequest request = new APIResourcesRequest(
+                "sub-regions",
+                "/api/v1/sub-regions",
+                rangeHeader,
+                sortsQueryParam,
+                filterQueryParam);
+        return subRegionWebSupport.getAll(
+                request,
+                pageRequest -> service.getAllSubRegions(pageRequest).stream().map(mapper::toDto).toList(),
+                service::countSubRegions);
     }
 
     @GetMapping("/{subRegionCode}")

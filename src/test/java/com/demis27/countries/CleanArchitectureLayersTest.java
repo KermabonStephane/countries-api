@@ -17,4 +17,13 @@ class CleanArchitectureLayersTest {
             .should()
             .dependOnClassesThat()
             .resideInAnyPackage("..business..", "..infrastructure..");
+
+    @ArchTest
+    static final ArchRule service_should_not_depend_on_infra = ArchRuleDefinition
+            .noClasses()
+            .that()
+            .resideInAPackage("..service..")
+            .should()
+            .dependOnClassesThat()
+            .resideInAnyPackage("..infrastructure..");
 }

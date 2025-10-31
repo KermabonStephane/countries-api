@@ -6,6 +6,7 @@ import com.demis27.countries.infrastructure.web.dto.RegionDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,22 +26,28 @@ public interface RegionApi {
             summary = "List all regions",
             description = "Retrieves a paginated and sortable list of all regions.",
             parameters = {
-                    @Parameter(name = "Range", in = ParameterIn.HEADER, description = "Pagination range, e.g., 'regions=0-4'"),
-                    @Parameter(name = "sort", in = ParameterIn.QUERY, description = "Sort order, e.g., 'name:asc'")
+                    @Parameter(name = "Range", in = ParameterIn.HEADER,
+                            description = "Pagination range, e.g., 'regions=0-4'"),
+                    @Parameter(name = "sort", in = ParameterIn.QUERY,
+                            description = "Sort order, e.g., 'name:asc'"),
+                    @Parameter(name = "filter", in = ParameterIn.QUERY,
+                            description = "Filters, e.g., 'name eq North America'")
             },
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "A paginated list of regions.",
                             headers = {
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Content-Range", description = "Pagination details, e.g., 'regions 0-4/5'"),
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Link", description = "Links for pagination (first, next, prev, last)")
+                                    @Header(name = "Content-Range", description = "Pagination details, e.g., 'regions 0-4/5'"),
+                                    @Header(name = "Link", description = "Links for pagination (first, next, prev, last)")
                             }
                     )
             }
     )
     @GetMapping
-    ResponseEntity<List<RegionDto>> getAllRegions(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam);
+    ResponseEntity<List<RegionDto>> getAllRegions(@RequestHeader(name = "Range", required = false) String rangeHeader,
+                                                  @RequestParam(name = "sort", required = false) String sortsQueryParam,
+                                                  @RequestParam(name = "filters", required = false) String filters);
 
     @Operation(
             summary = "Get a region by its code",

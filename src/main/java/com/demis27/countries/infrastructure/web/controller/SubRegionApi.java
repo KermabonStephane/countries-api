@@ -6,6 +6,7 @@ import com.demis27.countries.infrastructure.web.dto.SubRegionDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,22 +26,29 @@ public interface SubRegionApi {
             summary = "List all sub-regions",
             description = "Retrieves a paginated and sortable list of all sub-regions.",
             parameters = {
-                    @Parameter(name = "Range", in = ParameterIn.HEADER, description = "Pagination range, e.g., 'sub-regions=0-9'"),
-                    @Parameter(name = "sort", in = ParameterIn.QUERY, description = "Sort order, e.g., 'name:asc'")
+                    @Parameter(name = "Range", in = ParameterIn.HEADER,
+                            description = "Pagination range, e.g., 'sub-regions=0-9'"),
+                    @Parameter(name = "sort", in = ParameterIn.QUERY,
+                            description = "Sort order, e.g., 'name:asc'"),
+                    @Parameter(name = "filter", in = ParameterIn.QUERY,
+                            description = "Filters, e.g., 'name eq North America'")
             },
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "A paginated list of sub-regions.",
                             headers = {
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Content-Range", description = "Pagination details, e.g., 'sub-regions 0-9/23'"),
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Link", description = "Links for pagination (first, next, prev, last)")
+                                    @Header(name = "Content-Range", description = "Pagination details, e.g., 'sub-regions 0-9/23'"),
+                                    @Header(name = "Link", description = "Links for pagination (first, next, prev, last)")
                             }
                     )
             }
     )
     @GetMapping
-    ResponseEntity<List<SubRegionDto>> getAllSubRegions(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam);
+    ResponseEntity<List<SubRegionDto>> getAllSubRegions(
+            @RequestHeader(name = "Range", required = false) String rangeHeader,
+            @RequestParam(name = "sort", required = false) String sortsQueryParam,
+            @RequestParam(name = "filter", required = false) String filterQueryParam);
 
     @Operation(
             summary = "Get a sub-region by its code",

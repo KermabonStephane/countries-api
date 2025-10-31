@@ -1,16 +1,14 @@
 package com.demis27.countries.infrastructure.web.controller;
 
-import com.demis27.commons.restful.HeaderPageable;
-import com.demis27.commons.restful.spring.SpringSupport;
-import com.demis27.countries.service.CountryService;
-import com.demis27.countries.service.RegionService;
+import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.dto.RegionDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
 import com.demis27.countries.infrastructure.web.mapper.CountryDtoMapper;
 import com.demis27.countries.infrastructure.web.mapper.RegionDtoMapper;
+import com.demis27.countries.service.CountryService;
+import com.demis27.countries.service.RegionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,33 +28,42 @@ public class RegionController implements RegionApi {
 
     private final RegionService service;
     private final RegionDtoMapper mapper;
-    private final SpringSupport springSupport;
     private final CountryService countryService;
     private final CountryDtoMapper countryMapper;
+    private final RegionWebSupport regionWebSupport;
 
     @GetMapping
-    public ResponseEntity<List<RegionDto>> getAllRegions(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam) {
-        PageRequest pageable = springSupport.parseFromRest(rangeHeader, sortsQueryParam);
-        HeaderPageable resultRange = springSupport.extractHeaderPageable(pageable, "regions");
-        resultRange = HeaderPageable.toBuilder(resultRange).total(service.countRegions()).build();
-        return ResponseEntity
-                .ok()
-                .header(HeaderPageable.CONTENT_RANGE_HEADER_NAME, resultRange.toContentRangeHeader(false))
-                .header("link", resultRange.toLinkHeaders("/api/v1/regions").toString())
-                .body(service.getAllRegions(pageable)
-                        .stream()
-                        .map(mapper::toDto)
-                        .toList());
+    public ResponseEntity<List<RegionDto>> getAllRegions(
+            @RequestHeader(name = "Range", required = false) String rangeHeader,
+            @RequestParam(name = "sort", required = false) String sortsQueryParam,
+            @RequestParam(name = "filters", required = false) String filterQueryParam) {
+        APIResourcesRequest request = new APIResourcesRequest(
+                "regions",
+                "/api/v1/regions",
+                rangeHeader,
+                sortsQueryParam,
+                filterQueryParam);
+        return regionWebSupport.getAll(
+                request,
+                pageRequest -> service.getAllRegions(pageRequest).stream().map(mapper::toDto).toList(),
+                service::countRegions);
     }
 
     @GetMapping("/{regionCode}")
     public ResponseEntity<RegionDto> getRegion(@PathVariable("regionCode") Integer regionCode) {
-        return ResponseEntity.ok(service.getRegion(regionCode).map(mapper::toDto).orElseThrow(() -> new ResourceNotFoundException("Region with code %d not found".formatted(regionCode))));
+        return ResponseEntity.ok(service
+                        .getRegion(regionCode)
+                        .map(mapper::toDto)
+                        .orElseThrow(() -> new ResourceNotFoundException("Region with code %d not found".formatted(regionCode))));
     }
 
     @GetMapping("/{regionCode}/countries")
     public ResponseEntity<List<CountryDto>> getCountriesByRegion(@PathVariable("regionCode") Integer regionCode) {
-        return ResponseEntity.ok(countryService.getAllCountriesByRegion(regionCode).stream().map(countryMapper::toDto).toList());
+        return ResponseEntity.ok(countryService
+                .getAllCountriesByRegion(regionCode)
+                .stream()
+                .map(countryMapper::toDto)
+                .toList());
     }
 
 }

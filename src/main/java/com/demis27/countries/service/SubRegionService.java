@@ -1,8 +1,6 @@
 package com.demis27.countries.service;
 
 import com.demis27.countries.domain.SubRegion;
-import com.demis27.countries.infrastructure.jpa.mapper.SubRegionEntityMapper;
-import com.demis27.countries.infrastructure.jpa.repository.SubRegionEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,18 +12,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SubRegionService {
 
-    private final SubRegionEntityRepository repository;
-    private final SubRegionEntityMapper mapper;
+    private final SubRegionPort subRegionPort;
 
     public List<SubRegion> getAllSubRegions(Pageable pageable) {
-        return repository.findAll(pageable).stream().map(mapper::toDomain).toList();
+        return subRegionPort.getAllSubRegions(pageable);
     }
 
     public Long countSubRegions() {
-        return repository.count();
+        return subRegionPort.countSubRegions();
     }
 
     public Optional<SubRegion> getSubRegion(Integer subRegionCode) {
-        return repository.findById(subRegionCode).map(mapper::toDomain);
+        return subRegionPort.getSubRegion(subRegionCode);
     }
 }

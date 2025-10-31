@@ -1,8 +1,6 @@
 package com.demis27.countries.service;
 
 import com.demis27.countries.domain.Country;
-import com.demis27.countries.infrastructure.jpa.mapper.CountryEntityMapper;
-import com.demis27.countries.infrastructure.jpa.repository.CountryEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,26 +12,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CountryService {
 
-    private final CountryEntityRepository repository;
-    private final CountryEntityMapper mapper;
+    private final CountryPort countryPort;
 
     public List<Country> getAllCountries(Pageable pageable) {
-        return repository.findAll(pageable).stream().map(mapper::toDomain).toList();
+        return countryPort.getAllCountries(pageable);
     }
 
     public Long countCountries() {
-        return repository.count();
+        return countryPort.countCountries();
     }
 
     public Optional<Country> getCountry(Integer countryCode) {
-        return repository.findById(countryCode).map(mapper::toDomain);
+        return countryPort.getCountry(countryCode);
     }
 
     public List<Country> getAllCountriesByRegion(Integer regionCode) {
-        return repository.findCountryByRegionCode(regionCode).stream().map(mapper::toDomain).toList();
+        return countryPort.getAllCountriesByRegion(regionCode);
     }
 
     public List<Country> getAllCountriesBySubRegion(Integer subRegionCode) {
-        return repository.findCountryBySubRegionCode(subRegionCode).stream().map(mapper::toDomain).toList();
+        return countryPort.getAllCountriesBySubRegion(subRegionCode);
     }
 }

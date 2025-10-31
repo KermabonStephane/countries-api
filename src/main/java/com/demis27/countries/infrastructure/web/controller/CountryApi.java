@@ -5,6 +5,7 @@ import com.demis27.countries.infrastructure.web.dto.ErrorDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,22 +25,31 @@ public interface CountryApi {
             summary = "List all countries",
             description = "Retrieves a paginated and sortable list of all countries.",
             parameters = {
-                    @Parameter(name = "Range", in = ParameterIn.HEADER, description = "Pagination range, e.g., 'countries=0-9'"),
-                    @Parameter(name = "sort", in = ParameterIn.QUERY, description = "Sort order, e.g., 'name:asc'")
+                    @Parameter(name = "Range", in = ParameterIn.HEADER,
+                            description = "Pagination range, e.g., 'countries=0-9'"),
+                    @Parameter(name = "sort", in = ParameterIn.QUERY,
+                            description = "Sort order, e.g., 'name:asc'"),
+                    @Parameter(name = "filter", in = ParameterIn.QUERY,
+                            description = "Filters, e.g., 'firstname eq John, lastname eq Byrne'")
             },
             responses = {
                     @ApiResponse(
                             responseCode = "200",
                             description = "A paginated list of countries.",
                             headers = {
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Content-Range", description = "Pagination details, e.g., 'countries 0-9/250'"),
-                                    @io.swagger.v3.oas.annotations.headers.Header(name = "Link", description = "Links for pagination (first, next, prev, last)")
+                                    @Header(name = "Content-Range",
+                                            description = "Pagination details, e.g., 'countries 0-9/250'"),
+                                    @Header(name = "Link",
+                                            description = "Links for pagination (first, next, prev, last)")
                             }
                     )
             }
     )
     @GetMapping
-    ResponseEntity<List<CountryDto>> getAllCountries(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam);
+    ResponseEntity<List<CountryDto>> getAllCountries(
+            @RequestHeader(name = "Range", required = false) String rangeHeader,
+            @RequestParam(name = "sort", required = false) String sortsQueryParam,
+            @RequestParam(name = "filter", required = false) String filterQueryParam);
 
     @Operation(
             summary = "Get a country by its code",
@@ -52,12 +62,15 @@ public interface CountryApi {
                     @ApiResponse(
                             responseCode = "404",
                             description = "Country not found.",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDto.class))
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorDto.class))
                     )
             }
     )
     @GetMapping("/{countryCode}")
     ResponseEntity<CountryDto> getCountry(
-            @Parameter(description = "The numeric code of the country.", example = "250") @PathVariable("countryCode") Integer countryCode
+            @Parameter(description = "The numeric code of the country.", example = "250")
+            @PathVariable("countryCode")
+            Integer countryCode
     );
 }

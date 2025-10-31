@@ -12,3 +12,5 @@
 * [#4](https://github.com/KermabonStephane/countries-api/issues/4) Add Open API documentation
 * [#11](https://github.com/KermabonStephane/countries-api/issues/11) Add on README.md information of clean architecture
 * [#12](https://github.com/KermabonStephane/countries-api/issues/12) Add coverage
+* [#13](https://github.com/KermabonStephane/countries-api/issues/13) Separate Ports and Adapters
+* [#14](https://github.com/KermabonStephane/countries-api/issues/14) Use SpringWebSupport

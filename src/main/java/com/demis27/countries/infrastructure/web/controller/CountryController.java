@@ -1,13 +1,11 @@
 package com.demis27.countries.infrastructure.web.controller;
 
-import com.demis27.commons.restful.HeaderPageable;
-import com.demis27.commons.restful.spring.SpringSupport;
-import com.demis27.countries.service.CountryService;
+import com.demis27.commons.restful.spring.infrastructure.web.APIResourcesRequest;
 import com.demis27.countries.infrastructure.web.dto.CountryDto;
 import com.demis27.countries.infrastructure.web.exception.ResourceNotFoundException;
 import com.demis27.countries.infrastructure.web.mapper.CountryDtoMapper;
+import com.demis27.countries.service.CountryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,29 +25,31 @@ public class CountryController implements CountryApi {
 
     private final CountryService service;
     private final CountryDtoMapper mapper;
-    private final SpringSupport springSupport;
+    private final CountryWebSupport countryWebSupport;
 
     @GetMapping
-    public ResponseEntity<List<CountryDto>> getAllCountries(@RequestHeader(name = "Range", required = false) String rangeHeader, @RequestParam(name = "sort", required = false) String sortsQueryParam) {
-        PageRequest pageable = springSupport.parseFromRest(rangeHeader, sortsQueryParam);
-        HeaderPageable resultRange = springSupport.extractHeaderPageable(pageable, "countries");
-        resultRange = HeaderPageable.toBuilder(resultRange).total(service.countCountries()).build();
-        return ResponseEntity
-                .ok()
-                .header(HeaderPageable.CONTENT_RANGE_HEADER_NAME, resultRange.toContentRangeHeader(false))
-                .header("link", resultRange.toLinkHeaders("/api/v1/countries").toString())
-                .body(service.getAllCountries(pageable)
-                        .stream()
-                        .map(mapper::toDto)
-                        .toList());
+    public ResponseEntity<List<CountryDto>> getAllCountries(
+            @RequestHeader(name = "Range", required = false) String rangeHeader,
+            @RequestParam(name = "sort", required = false) String sortsQueryParam,
+            @RequestParam(name = "filter", required = false) String filterQueryParam) {
+        APIResourcesRequest request = new APIResourcesRequest(
+                "countries",
+                "/api/v1/countries",
+                rangeHeader,
+                sortsQueryParam,
+                filterQueryParam);
+        return countryWebSupport.getAll(
+                request,
+                pageRequest -> service.getAllCountries(pageRequest).stream().map(mapper::toDto).toList(),
+                service::countCountries);
     }
 
     @GetMapping("/{countryCode}")
     public ResponseEntity<CountryDto> getCountry(@PathVariable("countryCode") Integer countryCode) {
-        return ResponseEntity
-                .ok(service
-                        .getCountry(countryCode)
-                        .map(mapper::toDto)
-                        .orElseThrow(() -> new ResourceNotFoundException("Country with code %d not found".formatted(countryCode))));
+        return ResponseEntity.ok(
+                service
+                .getCountry(countryCode)
+                .map(mapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Country with code %d not found".formatted(countryCode))));
     }
 }
