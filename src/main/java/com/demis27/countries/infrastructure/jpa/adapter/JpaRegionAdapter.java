@@ -1,6 +1,6 @@
 package com.demis27.countries.infrastructure.jpa.adapter;
 
-import com.demis27.commons.restful.spring.infrastructure.jpa.JPAResourceAdapter;
+import com.demis27.commons.restful.spring.infrastructure.jpa.JpaResourceAdapter;
 import com.demis27.countries.domain.Region;
 import com.demis27.countries.infrastructure.jpa.entity.RegionEntity;
 import com.demis27.countries.infrastructure.jpa.mapper.RegionEntityMapper;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class JPARegionAdapter extends JPAResourceAdapter<Region, RegionEntity, Integer> implements RegionPort {
+public class JpaRegionAdapter extends JpaResourceAdapter<Region, RegionEntity, Integer> implements RegionPort {
 
     private final RegionEntityRepository repository;
     private final RegionEntityMapper mapper;
