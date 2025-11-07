@@ -45,8 +45,8 @@ public class SubRegionController extends ResourceController<SubRegionDto> implem
                 filterQueryParam);
         return getAll(
                 request,
-                resourceRequest -> service.getAllSubRegions(resourceRequest).stream().map(mapper::toDto).toList(),
-                service::countSubRegions);
+                resourceRequest -> service.getAllResources(resourceRequest).stream().map(mapper::toDto).toList(),
+                service::countResources);
     }
 
     @GetMapping("/{subRegionCode}")

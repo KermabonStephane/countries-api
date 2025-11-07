@@ -45,8 +45,8 @@ public class RegionController extends ResourceController<RegionDto> implements R
                 filterQueryParam);
         return getAll(
                 request,
-                resourceRequest -> service.getAllRegions(resourceRequest).stream().map(mapper::toDto).toList(),
-                service::countRegions);
+                resourceRequest -> service.getAllResources(resourceRequest).stream().map(mapper::toDto).toList(),
+                service::countResources);
     }
 
     @GetMapping("/{regionCode}")

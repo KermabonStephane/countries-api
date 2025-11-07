@@ -1,22 +1,21 @@
 package com.demis27.countries.infrastructure.jpa.adapter;
 
+import com.demis27.commons.restful.spring.infrastructure.jpa.EntityMapper;
 import com.demis27.commons.restful.spring.infrastructure.jpa.JpaResourceAdapter;
+import com.demis27.commons.restful.spring.infrastructure.jpa.JpaResourceRepository;
 import com.demis27.countries.domain.SubRegion;
 import com.demis27.countries.infrastructure.jpa.entity.SubRegionEntity;
-import com.demis27.countries.infrastructure.jpa.mapper.SubRegionEntityMapper;
-import com.demis27.countries.infrastructure.jpa.repository.SubRegionEntityRepository;
 import com.demis27.countries.service.SubRegionPort;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class JpaSubRegionAdapter extends JpaResourceAdapter<SubRegion, SubRegionEntity, Integer> implements SubRegionPort {
 
-    private final SubRegionEntityRepository repository;
-    private final SubRegionEntityMapper mapper;
+    protected JpaSubRegionAdapter(JpaResourceRepository<SubRegionEntity, Integer> repository, EntityMapper<SubRegionEntity, SubRegion> mapper) {
+        super(repository, mapper);
+    }
 
     @Override
     public Long countSubRegions() {

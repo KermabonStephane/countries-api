@@ -40,8 +40,8 @@ public class CountryController extends ResourceController<CountryDto> implements
                 filterQueryParam);
         return getAll(
                 request,
-                resourceRequest -> service.getAllCountries(resourceRequest).stream().map(mapper::toDto).toList(),
-                service::countCountries);
+                resourceRequest -> service.getAllResources(resourceRequest).stream().map(mapper::toDto).toList(),
+                service::countResources);
     }
 
     @GetMapping("/{countryCode}")

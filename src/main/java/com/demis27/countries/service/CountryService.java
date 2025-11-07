@@ -1,24 +1,18 @@
 package com.demis27.countries.service;
 
-import com.demis27.commons.restful.spring.model.APIResourcesRequest;
+import com.demis27.commons.restful.spring.service.ResourcePort;
 import com.demis27.commons.restful.spring.service.ResourceService;
 import com.demis27.countries.domain.Country;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class CountryService extends ResourceService<Country> {
 
-    public List<Country> getAllCountries(APIResourcesRequest request) {
-        return support.getAllResources(request);
-    }
-
-    public Long countCountries() {
-        return ((CountryPort)support).countCountries();
+    protected CountryService(ResourcePort<Country> support) {
+        super(support);
     }
 
     public Optional<Country> getCountry(Integer countryCode) {
